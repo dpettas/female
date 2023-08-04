@@ -1,5 +1,7 @@
 #ifndef FEMALE_DENSEMATRIX_HPP
 #define FEMALE_DENSEMATRIX_HPP
+#include <cstddef>
+
 
 
 class DenseMatrix
@@ -37,7 +39,7 @@ class DenseMatrix
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 
-DenseMatrix::DenseMatrix(int nrows, int ncols)
+inline DenseMatrix::DenseMatrix(int nrows, int ncols)
 {
     m_nrows = nrows;
     m_ncols = ncols;
@@ -46,7 +48,7 @@ DenseMatrix::DenseMatrix(int nrows, int ncols)
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-DenseMatrix::DenseMatrix(DenseMatrix&& other)
+inline DenseMatrix::DenseMatrix(DenseMatrix&& other)
 {
     m_nrows = other.m_nrows;
     m_ncols = other.m_ncols;
@@ -58,7 +60,7 @@ DenseMatrix::DenseMatrix(DenseMatrix&& other)
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
-DenseMatrix::~DenseMatrix()
+inline DenseMatrix::~DenseMatrix()
 {
     delete [] m_data;
     m_data = nullptr;
@@ -68,7 +70,7 @@ DenseMatrix::~DenseMatrix()
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-DenseMatrix::DenseMatrix(const DenseMatrix& other)
+inline DenseMatrix::DenseMatrix(const DenseMatrix& other)
 {
     m_nrows = other.m_nrows;
     m_ncols = other.m_ncols;
@@ -81,27 +83,27 @@ DenseMatrix::DenseMatrix(const DenseMatrix& other)
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-double& DenseMatrix::index(int i, int j)
+inline double& DenseMatrix::index(int i, int j)
 {
     return m_data[i * m_ncols + j ];
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-const double& DenseMatrix::index(int i, int j) const
+inline const double& DenseMatrix::index(int i, int j) const
 {
     return m_data[i * m_ncols + j ];
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-bool DenseMatrix::is_square() const{
+inline bool DenseMatrix::is_square() const{
     return (m_nrows == m_ncols);
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-DenseMatrix DenseMatrix::transpose() const 
+inline DenseMatrix DenseMatrix::transpose() const 
 {
     DenseMatrix transpose(m_ncols, m_nrows);
 
@@ -115,54 +117,54 @@ DenseMatrix DenseMatrix::transpose() const
 }
 
 
-DenseMatrix DenseMatrix::operator = (const DenseMatrix& other)
+inline DenseMatrix DenseMatrix::operator = (const DenseMatrix& other)
 {
     return DenseMatrix(other);
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-double& DenseMatrix::operator()(int i, int j)
+inline double& DenseMatrix::operator()(int i, int j)
 {
     return index(i,j);
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-const double& DenseMatrix::operator()(int i, int j) const
+inline const double& DenseMatrix::operator()(int i, int j) const
 {
     return index(i,j);
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-double* DenseMatrix::data() 
+inline double* DenseMatrix::data() 
 {
     return m_data;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-const double* DenseMatrix::data() const
+inline const double* DenseMatrix::data() const
 {
     return m_data;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-std::size_t DenseMatrix::num_rows() const{
+inline std::size_t DenseMatrix::num_rows() const{
     return m_nrows;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-std::size_t DenseMatrix::num_cols() const{
+inline std::size_t DenseMatrix::num_cols() const{
     return m_ncols;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-std::size_t DenseMatrix::size() const{
+inline std::size_t DenseMatrix::size() const{
     return m_nrows * m_ncols;
 }
 //-----------------------------------------------------
