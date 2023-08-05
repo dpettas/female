@@ -5,7 +5,15 @@
 #include "DenseMatrix.hpp"
 
 
-Vector solver( DenseMatrix& A, Vector& b );
+namespace female::math
+{
+    double l2_norm_sq(const Vector& vec);
+    double l2_norm   (const Vector& vec);
+    Vector solve( DenseMatrix& A, Vector& b );
+    
+} // namespace FEMALE::Test
+
+
 
 
 #endif

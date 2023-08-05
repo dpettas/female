@@ -1,6 +1,8 @@
 #ifndef FEMALE_DENSEMATRIX_HPP
 #define FEMALE_DENSEMATRIX_HPP
 #include <cstddef>
+#include <vector>
+#include <iostream>
 
 
 
@@ -9,6 +11,9 @@ class DenseMatrix
     public:
         DenseMatrix() = default;
         DenseMatrix(int nrows, int ncols);
+
+        DenseMatrix( std::vector<std::vector<double>> mat);
+
         DenseMatrix(const DenseMatrix& other);
         DenseMatrix( DenseMatrix&& other);
         DenseMatrix operator = (const DenseMatrix& other);
@@ -29,6 +34,8 @@ class DenseMatrix
         DenseMatrix transpose() const;
 
         bool is_square() const;
+
+        friend std::ostream& operator << (std::ostream& os, const DenseMatrix& mat);
 
     private:
         int m_nrows  = 0; 
@@ -78,6 +85,20 @@ inline DenseMatrix::DenseMatrix(const DenseMatrix& other)
 
     for(std::size_t i = 0; i < (m_nrows * m_ncols); ++i){
         m_data[i] = other.m_data[i];
+    }
+}
+//-----------------------------------------------------
+//-----------------------------------------------------
+
+inline DenseMatrix::DenseMatrix( std::vector<std::vector<double>> mat){
+    m_nrows = mat.size();
+    m_ncols = mat[0].size();
+    m_data  = new double [m_nrows * m_ncols];
+
+    for(int i = 0; i < m_nrows; ++i){
+        for(int j = 0; j < m_ncols; ++j){
+            index(i,j) = mat[i][j];
+        }
     }
 }
 //-----------------------------------------------------
@@ -169,6 +190,28 @@ inline std::size_t DenseMatrix::size() const{
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
+
+
+inline std::ostream& operator << (std::ostream& os, const DenseMatrix& mat){
+
+    os << '[';
+    for(int i = 0; i < mat.m_nrows; ++i){
+        if(i!=0) os << ' ';
+        os << '[';
+        for(int j = 0; j < mat.m_ncols; ++j){
+            os << mat.index(i,j) << " ";
+        }
+        os << ']';
+        if(i + 1!= mat.m_nrows) os << '\n';
+    }
+    os << ']';
+
+
+    return os;
+}
+//-----------------------------------------------------
+//-----------------------------------------------------
+
 
 
 #endif //FEMALE_DENSEMATRIX_HPP

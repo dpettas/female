@@ -10,4 +10,4 @@ find_package(LAPACK)
 
 
 add_executable(FEMALE ./src/main.cpp ./src/LinearAlgebraOperations.cpp)
-target_link_libraries(FEMALE ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES})
+target_link_libraries(FEMALE ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES} m )
