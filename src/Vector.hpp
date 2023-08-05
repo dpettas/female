@@ -11,8 +11,7 @@ class Vector
         Vector() = default;
         Vector(int nrows);
         Vector(const Vector& other);
-        Vector(Vector&& other);
-        Vector operator = (const Vector& other);
+        Vector& operator = (const Vector& other);
         Vector(std::vector<double> vec);
         ~Vector();
 
@@ -79,16 +78,18 @@ inline Vector::Vector(const Vector& other)
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-inline Vector::Vector(Vector&& other){
-    m_nrows = other.m_nrows;
-    m_data  = other.m_data;
-    other.m_data = nullptr;
-}
-//-----------------------------------------------------
-//-----------------------------------------------------
+inline Vector& Vector::operator=(const Vector& other){
+    if(this == &other){
+        return *this;
+    }
 
-inline Vector Vector::operator=(const Vector& other){
-    return Vector(other);
+    m_nrows = other.m_nrows;
+    m_data  = new double [m_nrows];
+    for(int i = 0; i < m_nrows; ++i){
+        m_data[i] = other.m_data[i];
+    }
+
+    return *this;
 }
 
 

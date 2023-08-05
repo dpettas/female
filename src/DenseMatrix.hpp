@@ -15,8 +15,7 @@ class DenseMatrix
         DenseMatrix( std::vector<std::vector<double>> mat);
 
         DenseMatrix(const DenseMatrix& other);
-        DenseMatrix( DenseMatrix&& other);
-        DenseMatrix operator = (const DenseMatrix& other);
+        DenseMatrix& operator = (const DenseMatrix& other);
         ~DenseMatrix();
 
         double& index(int i, int j);
@@ -55,18 +54,6 @@ inline DenseMatrix::DenseMatrix(int nrows, int ncols)
 //-----------------------------------------------------
 //-----------------------------------------------------
 
-inline DenseMatrix::DenseMatrix(DenseMatrix&& other)
-{
-    m_nrows = other.m_nrows;
-    m_ncols = other.m_ncols;
-    m_data  = other.m_data;
-
-    other.m_nrows = 0;
-    other.m_data  = nullptr;
-    other.m_ncols = 0;
-}
-//-----------------------------------------------------
-//-----------------------------------------------------
 inline DenseMatrix::~DenseMatrix()
 {
     delete [] m_data;
@@ -138,9 +125,20 @@ inline DenseMatrix DenseMatrix::transpose() const
 }
 
 
-inline DenseMatrix DenseMatrix::operator = (const DenseMatrix& other)
+inline DenseMatrix& DenseMatrix::operator = (const DenseMatrix& other)
 {
-    return DenseMatrix(other);
+    if(this == &other){
+        return *this;
+    }
+
+    m_nrows = other.m_nrows;
+    m_ncols = other.m_ncols;
+
+    for(int i = 0; i < (m_nrows * m_ncols); ++i){
+        m_data[i] = other.m_data[i];
+    }
+
+    return *this;
 }
 //-----------------------------------------------------
 //-----------------------------------------------------
