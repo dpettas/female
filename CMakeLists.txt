@@ -9,5 +9,7 @@ find_package(LAPACK)
 
 
 
-add_executable(FEMALE ./src/main.cpp ./src/LinearAlgebraOperations.cpp)
+
+add_executable(FEMALE ./src/main.cpp ./src/MathematicalOperations.cpp)
 target_link_libraries(FEMALE ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES} m )
+target_compile_features(FEMALE PRIVATE cxx_std_17)
