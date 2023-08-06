@@ -24,10 +24,11 @@ namespace female
 
             Point3  operator + (const Point3& other);
             Point3  operator - (const Point3& other);
-            Point3  operator * (double lambda);
 
             Point3& operator +=(const Point3& other);
             Point3& operator -=(const Point3& other);
+            double& operator[] (int i);
+            const double& operator[] (int i) const;
 
             friend std::ostream& operator << (std::ostream&, const Point3& p);
             
@@ -36,6 +37,7 @@ namespace female
     };
     ////////////////////////////////////////////////////
     ////////////////////////////////////////////////////
+    Point3  operator * (double lambda, const Point3& p);
 
     inline Point3::Point3()
     {
@@ -93,16 +95,6 @@ namespace female
     //--------------------------------------------------
     //--------------------------------------------------
 
-    inline Point3 Point3::operator * (double lambda){
-        Point3 out;
-        out.m_x[0] = lambda * m_x[0];
-        out.m_x[1] = lambda * m_x[1];
-        out.m_x[2] = lambda * m_x[2];
-        return out;
-    }
-    //--------------------------------------------------
-    //--------------------------------------------------
-
     inline const double& Point3::x0() const{
         return m_x[0];
     }
@@ -151,6 +143,31 @@ namespace female
         os << buf;
         return os;
     }
+    //--------------------------------------------------
+    //--------------------------------------------------
+
+    inline double& Point3::operator[] (int i){
+        return m_x[i];
+    }
+    //--------------------------------------------------
+    //--------------------------------------------------
+
+    inline const double& Point3::operator[] (int i) const{
+        return m_x[i];
+    }
+    //--------------------------------------------------
+    //--------------------------------------------------
+
+    inline Point3 operator * (double lambda, const Point3& p){
+        Point3 out;
+        out[0] = lambda * p[0];
+        out[1] = lambda * p[1];
+        out[2] = lambda * p[2];
+        return out;
+    }
+    //--------------------------------------------------
+    //--------------------------------------------------
+
 
 }
 

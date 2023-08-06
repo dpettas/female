@@ -64,9 +64,9 @@ namespace female
     //------------------------------------------------------
 
     inline Vec3::Vec3(const Point3& end, const Point3& begin){
-        m_x[0] = begin.x0() - end.x0();
-        m_x[1] = begin.x1() - end.x1();
-        m_x[2] = begin.x2() - end.x2();
+        m_x[0] = end.x0() - begin.x0();
+        m_x[1] = end.x1() - begin.x1();
+        m_x[2] = end.x2() - begin.x2();
     }
     //------------------------------------------------------
     //------------------------------------------------------
