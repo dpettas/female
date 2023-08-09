@@ -13,6 +13,7 @@ namespace female::math::interp{
             using func_t  = std::function<double(double)>;
             using funcs_t = std::array<func_t,order>;
 
+            Lagrange( const funcs_t& funcs);
             Lagrange( const funcs_t& funcs, const funcs_t& dfuncs);
 
             std::size_t size() const;
@@ -32,6 +33,17 @@ namespace female::math::interp{
     Lagrange<order>::Lagrange(const Lagrange::funcs_t& funcs, const Lagrange::funcs_t& dfuncs):
     m_f(funcs), m_df(dfuncs)
     {}
+    //-----------------------------------------------------
+    //-----------------------------------------------------
+
+    template<int order>
+    Lagrange<order>::Lagrange(const Lagrange::funcs_t& funcs):
+    m_f(funcs)
+    {
+        for(int i = 0; i < order; ++i){
+            m_df[i] = [this,i](double x){ return (m_f[i](x+1.e-10) - m_f[i](x))/1.e-10; };
+        }
+    }
     //-----------------------------------------------------
     //-----------------------------------------------------
 
